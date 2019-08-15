@@ -10,40 +10,52 @@ class Datatable extends CI_Controller
 
     public function index()
     {
-        $x['data']=$this->mdata->show_data()->result_array();
-        $x['data_ruangan']=$this->mdata->show_data_ruangan()->result_array();
-        // koreksi dari saya
-        // $x = $this->mdata->show_data()->result_array();
-        // foreach ($x as $value) {
-        //     $id_pinjam = $value['id_pinjam'];
-        //     $cari_id_ruangan = $this->mdata->find_data('tbl_pinjam_ruang', 'id_tbl_pinjam', $id_pinjam);
-        //     if ($cari_id_ruangan->num_rows() == 0) {
-        //         $data_ruang = ['Tidak Ada Data'];
+        //$x['data']=$this->mdata->show_data()->result_array();
+        //$x['data_ruangan']=$this->mdata->show_data_ruangan()->result_array();
+        //koreksi dari saya
+        $x = $this->mdata->show_data()->result_array();
+        foreach ($x as $value) {
+            $id_pinjam = $value['id_pinjam'];
+            $cari_id_ruangan = $this->mdata->find_data('tbl_pinjam_ruang', 'id_tbl_pinjam', $id_pinjam);
+            if ($cari_id_ruangan->num_rows() == 0) {
+				$data_ruang = 'Tidak Ada Data';
+				$data[] = [
+					'id_pinjam' => $id_pinjam,
+					'tanggal_jam' => $value['tanggal_jam'],
+					'id_jurusan' => $value['id_jurusan'],
+					'no_hp' => $value['no_hp'],
+					'nama' => $value['nama'],
+					'jurusan' => $value['jurusan'],
+					'data_ruangan' => $data_ruang,
+				];
+            } else {
+                foreach ($cari_id_ruangan->result_array() as $item_cari) {
+					$id_tbl_ruangan = $item_cari['id_tbl_ruangan'];
+                    $cari_ruangan = $this->mdata->find_data('tbl_ruangan', 'id_ruangan', $id_tbl_ruangan)->row_array();
+                    // $data_ruang[] = [
+                    //     'id' => $item_cari['id'],
+                    //     'id_tbl_pinjam' => $item_cari['id_tbl_pinjam'],
+                    //     'id_tbl_ruangan' => $id_tbl_ruangan,
+					// 	'ruangan' => $cari_ruangan['ruangan'],
+					// ];
+					$data_ruang='Ada';
+				}
+				$data[] = [
+					'id_pinjam' => $id_pinjam,
+					'tanggal_jam' => $value['tanggal_jam'],
+					'id_jurusan' => $value['id_jurusan'],
+					'no_hp' => $value['no_hp'],
+					'nama' => $value['nama'],
+					'jurusan' => $value['jurusan'],
+					'data_ruangan' => $data_ruang,
+				];
+            }
 
-        //     } else {
-        //         foreach ($cari_id_ruangan->result_array() as $item_cari) {
-		// 			$id_tbl_ruangan = $item_cari['id_tbl_ruangan'];
-        //             $cari_ruangan = $this->mdata->find_data('tbl_ruangan', 'id_ruangan', $id_tbl_ruangan)->row_array();
-        //             $data_ruang[] = [
-        //                 'id' => $item_cari['id'],
-        //                 'id_tbl_pinjam' => $item_cari['id_tbl_pinjam'],
-        //                 'id_tbl_ruangan' => $id_tbl_ruangan,
-		// 				'ruangan' => $cari_ruangan['ruangan'],
-		// 			];
-		// 		}
-        //     }
-
-        //     $data[] = [
-        //         'id_pinjam' => $id_pinjam,
-        //         'tanggal_jam' => $value['tanggal_jam'],
-        //         'id_jurusan' => $value['id_jurusan'],
-        //         'no_hp' => $value['no_hp'],
-        //         'nama' => $value['nama'],
-        //         'jurusan' => $value['jurusan'],
-        //         'data_ruangan' => $data_ruang,
-        //     ];
-        // }
-        // print_r($data);
+            
+		}
+		$x['data']=$data;
+		$x['ruangan']=$this->mdata->show_data_ruangan()->result_array();
+        //print_r($x['ruangan']);
         $this->load->view('v_data',$x);
     }
     public function tambah_aksi()

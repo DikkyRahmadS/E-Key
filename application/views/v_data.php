@@ -23,19 +23,22 @@
 		</thead>
 		<tbody>
 			<?php 
-				foreach($data->result() as $i):
-					$tanggal_jam=$i->tanggal_jam;
-					$id_jurusan=$i->jurusan;
-					
-					$no_hp=$i->no_hp;
-					$nama=$i->nama;
-			?>
+				foreach($data as $i):?>
 			<tr>
-				<td><?php echo $tanggal_jam;?></td>
-				<td><?php echo $id_jurusan;?></td>
-				<td>a</td>
-				<td><?php echo $no_hp;?></td>
-				<td><?php echo $nama;?></td>
+				<td><?php echo $i['tanggal_jam'];?></td>
+				<td><?php echo $i['id_jurusan'];?></td>
+				<td><?php if ( $i['data_ruangan']=='Ada') {
+					foreach ($ruangan as  $value) {
+						if ($value['id_tbl_pinjam']==$i['id_pinjam']) {
+						echo $value['ruangan'],'<br>';
+						}
+					}
+				} else {
+					echo 'Tidak Ada Data';
+				}
+				;?></td>
+				<td><?php echo $i['no_hp'];?></td>
+				<td><?php echo $i['nama'];?></td>
 			</tr>
 			<?php endforeach;?>
 		</tbody>

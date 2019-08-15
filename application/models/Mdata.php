@@ -7,15 +7,15 @@ class Mdata extends CI_Model
         $this->db->select('*');
         $this->db->from('tbl_pinjam');
         $this->db->join('tbl_jurusan', 'tbl_jurusan.id_jurusan=tbl_pinjam.id_jurusan');
-        // $hasil=$this->db->query("SELECT * FROM tbl_pinjam");
-        // return $hasil;
+        $this->db->order_by('id_pinjam', 'desc');
         return $this->db->get();
     }
 
     public function show_data_ruangan()
     {
-        $this->db->select('*');
-        $this->db->from('tbl_ruangan');
+		$this->db->from('tbl_pinjam_ruang');
+		$this->db->join('tbl_ruangan', 'tbl_ruangan.id_ruangan = tbl_pinjam_ruang.id_tbl_ruangan');
+		
         return $this->db->get();
     }
     public function input_data($data, $table, $ruangan = [])
