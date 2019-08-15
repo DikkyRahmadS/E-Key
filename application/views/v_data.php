@@ -15,6 +15,7 @@
 			<tr>
 				<td>Tanggal & Jam </td>
 				<td>Nama Jurusan </td>
+				<td>Nama Ruangan</td>
 				<td>Nomor Handphone</td>
 				<td>Nama</td>
 	
@@ -32,6 +33,7 @@
 			<tr>
 				<td><?php echo $tanggal_jam;?></td>
 				<td><?php echo $id_jurusan;?></td>
+				<td>a</td>
 				<td><?php echo $no_hp;?></td>
 				<td><?php echo $nama;?></td>
 			</tr>

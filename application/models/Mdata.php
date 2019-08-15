@@ -57,6 +57,12 @@ class Mdata extends CI_Model
 	{
 		$this->db->insert('tbl_user', $data);
 	}
+	// perintah mencari data 
+    public function find_data($tabel,$id_tabel,$id)
+    {
+        $this->db->where($id_tabel,$id);
+        return $this->db->get($tabel);
+    }
 
 }
 /* End of file Mdata.php */
