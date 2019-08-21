@@ -5,6 +5,11 @@
 	<title>Data Barang</title>
 	<link href="<?php echo base_url().'assets/css/bootstrap.css'?>" rel="stylesheet">
     <link href="<?php echo base_url().'assets/css/jquery.dataTables.min.css'?>" rel="stylesheet">
+    <style type="text/css">
+    body{
+    	background: linear-gradient(#87CEFA, #F0F8FF);
+    }
+    </style>
 </head>
 <body>
 
@@ -26,7 +31,7 @@
 				foreach($data as $i):?>
 			<tr>
 				<td><?php echo $i['tanggal_jam'];?></td>
-				<td><?php echo $i['id_jurusan'];?></td>
+				<td><?php echo $i['jurusan'];?></td>
 				<td><?php if ( $i['data_ruangan']=='Ada') {
 					foreach ($ruangan as  $value) {
 						if ($value['id_tbl_pinjam']==$i['id_pinjam']) {

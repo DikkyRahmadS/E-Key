@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en"><head>
   <meta charset="utf-8">
-  <title>Snow Landing Page Theme | Created By Visual Soldiers</title>
+  <link rel="icon" href="<?=base_url()?>assets/img/logo.png">
+  <title>E-Key | Universitas Islam Negeri Malang</title>
   <meta name="keywords" content="">
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -34,6 +35,18 @@
     color: black;
     font-family: Algerian;
   }
+  
+  input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  cursor:pointer;
+}
+
   /*------------------Buttons---------------------*/
 .btn:focus {
   outline: 0px auto -webkit-focus-ring-color;
@@ -44,10 +57,11 @@
   text-transform: uppercase;
   border-radius: 30px;
   border: none;
+  cursor:pointer;
 }
 
 .btn-lg {
-  font-size: 13px;
+  font-size: 40px;
   line-height: 1.33;
   padding: 22px 30px;
   font-weight: 400;
@@ -99,9 +113,21 @@
   transition: all 0.35s ease-in-out;
 }
 .js-example-basic-multiple{
-  width: 200px;
+  width: 567px;
+  cursor:pointer;
+  
+}
+.gambar{
+  margin-left:auto;
+  margin-right:auto;
+  display:block;
+  width:220px
+}
+.col-xs-6{
+  
 }
   </style>
+
 
 </head>
 
@@ -118,8 +144,8 @@
         </div>
         <div class="row header-info">
           <div class="col-sm-10 col-sm-offset-1 text-center">
-            <h1 class="wow fadeIn">E - Key</h1>
-            <br><br>    
+            <img src="<?=base_url()?>assets/img/kunci.png" alt="" class="gambar">
+            <br><br><br>
             <div class="row">
               <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
                 <div class="row">
@@ -170,11 +196,11 @@
             </div><br>
           <div class="no_hp">
             <label> Nomor Handphone </label> <br>
-            <input type="" name="no_hp" id="no_hp" onkeyup="nama_otomatis()">
+            <input type="text" name="no_hp" id="no_hp" onkeyup="nama_otomatis()">
           </div>
           <div class="no_hp">
             <label> Nama </label> <br>
-            <input type="" name="nama" id="nama">
+            <input type="text" name="nama" id="nama">
           </div>
         
           </div>    
@@ -218,7 +244,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Save changes</button>
+            <button type="submit" class="btn btn-primary">Simpan</button>
           </div>
         </div>
       </div>
@@ -299,7 +325,7 @@ $('#ruangan').on('select2:opening select2:closing', function( event ) {
     
 });
 $("#ruangan").select2({
-    placeholder: "-- Pilih Ruangan --"
+    placeholder: "  Pilih Ruangan"
 });
 </script>
 <script type="text/javascript">
@@ -312,7 +338,7 @@ $('#ruangan2').on('select2:opening select2:closing', function( event ) {
     
 });
 $("#ruangan2").select2({
-    placeholder: "-- Pilih Ruangan --"
+    placeholder: "  Pilih Ruangan"
 });
 </script>
 <!-- script untuk nama otomatis -->

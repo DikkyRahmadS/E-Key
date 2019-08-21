@@ -30,21 +30,21 @@ class Dashboard extends CI_Controller
     }
     public function get_data()
     {
-        $no_hp=$this->input->get('no_hp');
+        $no_hp = $this->input->get('no_hp');
         //$no_hp='2147483647';
-        $data=$this->mjurusan->get_no_hp($no_hp);
-        if ($data->num_rows()>0) {
-            $hasil=$data->row_array();
-           $hasil=[
-               'nama'=>$hasil['nama']
-           ];
+        $data = $this->mjurusan->get_no_hp($no_hp);
+        if ($data->num_rows() > 0) {
+            $hasil = $data->row_array();
+            $hasil = [
+                'nama' => $hasil['nama'],
+            ];
 
         } else {
-            $hasil=[
-                'nama'=>'Tidak Ada Data'
+            $hasil = [
+                'nama' => '',
             ];
         }
-        
+
         echo json_encode($hasil);
     }
 }

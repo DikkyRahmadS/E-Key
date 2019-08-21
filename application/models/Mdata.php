@@ -63,6 +63,16 @@ class Mdata extends CI_Model
         $this->db->where($id_tabel,$id);
         return $this->db->get($tabel);
     }
+    public function get_ruangan()
+    {
+        $this->db->order_by('id_pinjam', 'desc');
+        return $this->db->get('tbl_pinjam', 1);   
+    }
+    public function update_data($id_ruangan,$data)
+    {
+        $this->db->where('id_ruangan', $id_ruangan);
+        $this->db->update('tbl_ruangan', $data);
+    }
 
 }
 /* End of file Mdata.php */
