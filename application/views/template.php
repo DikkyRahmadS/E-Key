@@ -8,10 +8,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   
   <meta property="og:title" content="">
-	<meta property="og:type" content="website">
-	<meta property="og:url" content="">
-	<meta property="og:site_name" content="">
-	<meta property="og:description" content="">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="">
+  <meta property="og:site_name" content="">
+  <meta property="og:description" content="">
 
   <!-- Styles -->
   <link rel="stylesheet" href="<?=base_url()?>assets/css/font-awesome.min.css">
@@ -27,7 +27,7 @@
 
   <style type="text/css">
   header{
-    background: url(<?=base_url()?>assets/img/bg.jpg) no-repeat center center;
+    background: url(<?=base_url()?>assets/img/asd.jpg) no-repeat center center;
     background-size: cover;
     background-attachment: fixed;
   }
@@ -123,9 +123,10 @@
   display:block;
   width:220px
 }
-.col-xs-6{
-  
+.history{
+  height: 30px;
 }
+
   </style>
 
 
@@ -138,8 +139,8 @@
           <div class="col-xs-6">
             <a href=""><img src="<?=base_url()?>assets/img/head.png" alt="Logo"></a>
           </div>
-          <div class="col-xs-6 signin text-right navbar-nav">
-              </a>&nbsp; &nbsp;<a href="<?=base_url()?>Datatable/index">History</a>
+          <div class="col-xs-6 signin text-right navbar-nav" class="history">
+              </a>&nbsp; &nbsp;<a href="<?=base_url()?>Datatable/index"><img src="<?=base_url()?>assets/img/history.png" alt="" class="history"></a>
           </div>
         </div>
         <div class="row header-info">
@@ -190,7 +191,7 @@
              </div><br>
             <div class="ruangan">
            <label> Pilih Ruangan </label> <br>
-          <select  name="ruangan[]" id="ruangan" disabled="" class="js-example-basic-multiple" multiple="multiple">
+          <select  name="ruangan[]" id="ruangan" disabled="" class="js-example-basic-multiple" multiple="multiple" style="width: 570px">
              <option value="" >-- Pilih Ruangan --</option>
           </select>
             </div><br>
@@ -215,7 +216,7 @@
   
     <!-- Modal -->
     <div class="modal fade" id="kembali" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-      <form action="<?php echo base_url(). 'Kembali/tambah_aksi'; ?>" method="post">
+      <form action="<?php echo base_url(). 'Datatablekembali/tambah_aksi'; ?>" method="post">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -228,7 +229,7 @@
             
             <div class="jurusan2">
           <label> Pilih Jurusan </label> <br> 
-          <select name="jurusan2" id="jurusan2">
+          <select name="jurusan" id="jurusan2">
           <option value="">-- Pilih Jurusan --</option>
             <?php foreach ($tbl_jurusan as $jurusan): ?>
               <option value="<?php echo $jurusan->id_jurusan; ?>"><?php echo $jurusan->jurusan; ?></option>
@@ -241,16 +242,24 @@
              <option value="" >-- Pilih Ruangan --</option>
           </select>
             </div><br>
+            <div class="no_hp">
+            <label> Nomor Handphone </label> <br>
+            <input type="text" name="no_hp" id="no_hp2" onkeyup="nama_otomatis2()">
+          </div>
+          <div class="no_hp">
+            <label> Nama </label> <br>
+            <input type="text" name="nama" id="nama2">
+          </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Simpan</button>
+            <button type="submit" class="btn btn-primary" >Simpan</button>
           </div>
         </div>
       </div>
       </form>
     </div>
-    <!-- Javascript
+    <!-- Javascript -->
     <!-- Jquery Core Js -->
     <script src="<?=base_url()?>assets/js/jquery.min.js"></script>
 
@@ -281,7 +290,7 @@
               $('#ruangan').html(data);
             },
             error: function(){
-              alert('Error');
+              alert('Ruangan Telah Dipinjam Semua');
             }
         });
       }
@@ -357,5 +366,21 @@ $("#ruangan2").select2({
     });
   }
 </script>
+<script>
+  function nama_otomatis2() {
+    var no_hp=$('#no_hp2').val();
+    $.ajax({
+      type: "GET",
+      url: '<?= base_url();?>index.php/Datatablekembali/get_data',
+      data: {'no_hp':no_hp},
+      dataType: "JSON",
+      success: function (response) {
+        //console.log(response.nama);
+           $('#nama2').val(response.nama);   
+      }
+    });
+  }
+</script>
+
     </body>
 </html>

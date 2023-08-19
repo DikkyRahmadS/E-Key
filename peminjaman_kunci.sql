@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 09 Agu 2019 pada 09.28
+-- Generation Time: 28 Agu 2019 pada 09.11
 -- Versi Server: 5.6.26
 -- PHP Version: 5.6.12
 
@@ -48,6 +48,48 @@ INSERT INTO `tbl_jurusan` (`id_jurusan`, `jurusan`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `tbl_kembali`
+--
+
+CREATE TABLE IF NOT EXISTS `tbl_kembali` (
+  `id_kembali` int(11) NOT NULL,
+  `tanggal_jam` datetime NOT NULL,
+  `id_jurusan` int(11) NOT NULL,
+  `no_hp` varchar(15) NOT NULL,
+  `nama` varchar(255) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `tbl_kembali`
+--
+
+INSERT INTO `tbl_kembali` (`id_kembali`, `tanggal_jam`, `id_jurusan`, `no_hp`, `nama`) VALUES
+(16, '2019-08-28 13:59:46', 1, '081336349305', 'dikky'),
+(17, '2019-08-28 14:10:42', 1, '081336349305', 'dikky');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tbl_kembali_ruang`
+--
+
+CREATE TABLE IF NOT EXISTS `tbl_kembali_ruang` (
+  `id` int(11) NOT NULL,
+  `id_tbl_kembali` int(11) NOT NULL,
+  `id_tbl_ruangan` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `tbl_kembali_ruang`
+--
+
+INSERT INTO `tbl_kembali_ruang` (`id`, `id_tbl_kembali`, `id_tbl_ruangan`) VALUES
+(19, 16, 1),
+(20, 17, 2);
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `tbl_pinjam`
 --
 
@@ -56,26 +98,15 @@ CREATE TABLE IF NOT EXISTS `tbl_pinjam` (
   `tanggal_jam` datetime NOT NULL,
   `id_jurusan` int(11) NOT NULL,
   `no_hp` varchar(15) NOT NULL,
-  `nama` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+  `nama` varchar(255) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `tbl_pinjam`
 --
 
 INSERT INTO `tbl_pinjam` (`id_pinjam`, `tanggal_jam`, `id_jurusan`, `no_hp`, `nama`) VALUES
-(1, '0000-00-00 00:00:00', 1, '081234567890', ''),
-(2, '2019-08-15 00:00:00', 1, '081336349305', 'Dikky Rahmad'),
-(4, '2019-08-08 17:43:50', 3, '', NULL),
-(5, '2019-08-08 17:56:03', 1, '', NULL),
-(6, '2019-08-08 18:30:41', 3, '', NULL),
-(7, '2019-08-08 18:31:00', 8, '', NULL),
-(8, '2019-08-08 18:31:28', 4, '', NULL),
-(9, '2019-08-09 01:02:10', 1, '', NULL),
-(10, '2019-08-09 01:30:27', 3, '081336349305', NULL),
-(11, '2019-08-09 01:31:02', 7, '08133639999', NULL),
-(13, '2019-08-09 01:31:53', 6, '08133631231', NULL),
-(14, '2019-08-09 09:19:59', 4, '08133639999', NULL);
+(94, '2019-08-28 13:59:25', 1, '081336349305', 'dikky');
 
 -- --------------------------------------------------------
 
@@ -87,28 +118,15 @@ CREATE TABLE IF NOT EXISTS `tbl_pinjam_ruang` (
   `id` int(11) NOT NULL,
   `id_tbl_pinjam` int(11) NOT NULL,
   `id_tbl_ruangan` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=138 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `tbl_pinjam_ruang`
 --
 
 INSERT INTO `tbl_pinjam_ruang` (`id`, `id_tbl_pinjam`, `id_tbl_ruangan`) VALUES
-(3, 4, 28),
-(4, 4, 30),
-(5, 5, 3),
-(6, 6, 27),
-(7, 6, 28),
-(8, 7, 104),
-(9, 8, 43),
-(10, 8, 45),
-(11, 9, 3),
-(12, 10, 29),
-(13, 11, 89),
-(14, 13, 73),
-(15, 14, 42),
-(16, 14, 43),
-(17, 14, 44);
+(136, 94, 1),
+(137, 94, 2);
 
 -- --------------------------------------------------------
 
@@ -128,10 +146,10 @@ CREATE TABLE IF NOT EXISTS `tbl_ruangan` (
 --
 
 INSERT INTO `tbl_ruangan` (`id_ruangan`, `ruangan`, `id_jurusan`, `flag`) VALUES
-(1, 'Bagian Umum', 1, 1),
+(1, 'Bagian Umum', 1, 0),
 (2, 'Pembantu Dekan II Administrasi Keuangan', 1, 0),
 (3, 'Pelayanan Akademik', 1, 0),
-(4, 'Unit SIM', 1, 1),
+(4, 'Unit SIM', 1, 0),
 (5, 'Pembantu Dekan I Pembantu Dekan III Kepala Laboratorium', 1, 0),
 (6, 'Sidang', 1, 0),
 (7, 'Dekan', 1, 0),
@@ -243,14 +261,23 @@ CREATE TABLE IF NOT EXISTS `tbl_user` (
   `id_user` int(11) NOT NULL,
   `nama` varchar(255) NOT NULL,
   `no_hp` varchar(25) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `tbl_user`
 --
 
 INSERT INTO `tbl_user` (`id_user`, `nama`, `no_hp`) VALUES
-(1, 'johan', '2147483647');
+(1, 'johan', '081234302099'),
+(2, 'Ani', '08133639999'),
+(3, 'dikky', '081336349305'),
+(4, 'Didin', '085791555781'),
+(5, 'Afuw', '083845478260'),
+(6, 'febri', '082336697912'),
+(7, 'dani', '081252729898'),
+(8, 'rahma', '085924310447'),
+(9, 'izzan', '089691099072'),
+(10, 'wawan', '082143592557');
 
 --
 -- Indexes for dumped tables
@@ -261,6 +288,21 @@ INSERT INTO `tbl_user` (`id_user`, `nama`, `no_hp`) VALUES
 --
 ALTER TABLE `tbl_jurusan`
   ADD PRIMARY KEY (`id_jurusan`);
+
+--
+-- Indexes for table `tbl_kembali`
+--
+ALTER TABLE `tbl_kembali`
+  ADD PRIMARY KEY (`id_kembali`),
+  ADD KEY `id_jurusan` (`id_jurusan`);
+
+--
+-- Indexes for table `tbl_kembali_ruang`
+--
+ALTER TABLE `tbl_kembali_ruang`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_tbl_kembali` (`id_tbl_kembali`),
+  ADD KEY `id_tbl_ruangan` (`id_tbl_ruangan`);
 
 --
 -- Indexes for table `tbl_pinjam`
@@ -304,15 +346,25 @@ ALTER TABLE `tbl_user`
 ALTER TABLE `tbl_jurusan`
   MODIFY `id_jurusan` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
+-- AUTO_INCREMENT for table `tbl_kembali`
+--
+ALTER TABLE `tbl_kembali`
+  MODIFY `id_kembali` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=18;
+--
+-- AUTO_INCREMENT for table `tbl_kembali_ruang`
+--
+ALTER TABLE `tbl_kembali_ruang`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
+--
 -- AUTO_INCREMENT for table `tbl_pinjam`
 --
 ALTER TABLE `tbl_pinjam`
-  MODIFY `id_pinjam` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
+  MODIFY `id_pinjam` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=95;
 --
 -- AUTO_INCREMENT for table `tbl_pinjam_ruang`
 --
 ALTER TABLE `tbl_pinjam_ruang`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=138;
 --
 -- AUTO_INCREMENT for table `tbl_ruangan`
 --
@@ -322,10 +374,17 @@ ALTER TABLE `tbl_ruangan`
 -- AUTO_INCREMENT for table `tbl_user`
 --
 ALTER TABLE `tbl_user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
+
+--
+-- Ketidakleluasaan untuk tabel `tbl_kembali_ruang`
+--
+ALTER TABLE `tbl_kembali_ruang`
+  ADD CONSTRAINT `tbl_kembali_ruang_ibfk_1` FOREIGN KEY (`id_tbl_kembali`) REFERENCES `tbl_kembali` (`id_kembali`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tbl_kembali_ruang_ibfk_2` FOREIGN KEY (`id_tbl_ruangan`) REFERENCES `tbl_ruangan` (`id_ruangan`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Ketidakleluasaan untuk tabel `tbl_pinjam_ruang`

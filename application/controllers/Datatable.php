@@ -5,7 +5,7 @@ class Datatable extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('mdata');
+		$this->load->model('mdata');
         date_default_timezone_set('Asia/Jakarta');
     }
 
@@ -19,44 +19,45 @@ class Datatable extends CI_Controller
             $id_pinjam = $value['id_pinjam'];
             $cari_id_ruangan = $this->mdata->find_data('tbl_pinjam_ruang', 'id_tbl_pinjam', $id_pinjam);
             if ($cari_id_ruangan->num_rows() == 0) {
-                $data_ruang = 'Tidak Ada Data';
-                $data[] = [
-                    'id_pinjam' => $id_pinjam,
-                    'tanggal_jam' => $value['tanggal_jam'],
-                    'id_jurusan' => $value['id_jurusan'],
-                    'no_hp' => $value['no_hp'],
-                    'nama' => $value['nama'],
-                    'jurusan' => $value['jurusan'],
-                    'data_ruangan' => $data_ruang,
-                ];
+				$data_ruang = 'Tidak Ada Data';
+				$data[] = [
+					'id_pinjam' => $id_pinjam,
+					'tanggal_jam' => $value['tanggal_jam'],
+					'id_jurusan' => $value['id_jurusan'],
+					'no_hp' => $value['no_hp'],
+					'nama' => $value['nama'],
+					'jurusan' => $value['jurusan'],
+					'data_ruangan' => $data_ruang,
+				];
             } else {
                 foreach ($cari_id_ruangan->result_array() as $item_cari) {
-                    $id_tbl_ruangan = $item_cari['id_tbl_ruangan'];
+					$id_tbl_ruangan = $item_cari['id_tbl_ruangan'];
                     $cari_ruangan = $this->mdata->find_data('tbl_ruangan', 'id_ruangan', $id_tbl_ruangan)->row_array();
                     // $data_ruang[] = [
                     //     'id' => $item_cari['id'],
                     //     'id_tbl_pinjam' => $item_cari['id_tbl_pinjam'],
                     //     'id_tbl_ruangan' => $id_tbl_ruangan,
-                    //     'ruangan' => $cari_ruangan['ruangan'],
-                    // ];
-                    $data_ruang = 'Ada';
-                }
-                $data[] = [
-                    'id_pinjam' => $id_pinjam,
-                    'tanggal_jam' => $value['tanggal_jam'],
-                    'id_jurusan' => $value['id_jurusan'],
-                    'no_hp' => $value['no_hp'],
-                    'nama' => $value['nama'],
-                    'jurusan' => $value['jurusan'],
-                    'data_ruangan' => $data_ruang,
-                ];
+					// 	'ruangan' => $cari_ruangan['ruangan'],
+					// ];
+					$data_ruang='Ada';
+				}
+				$data[] = [
+					'id_pinjam' => $id_pinjam,
+					'tanggal_jam' => $value['tanggal_jam'],
+					'id_jurusan' => $value['id_jurusan'],
+					'no_hp' => $value['no_hp'],
+					'nama' => $value['nama'],
+					'jurusan' => $value['jurusan'],
+					'data_ruangan' => $data_ruang,
+				];
             }
 
-        }
-        $x['data'] = $data;
-        $x['ruangan'] = $this->mdata->show_data_ruangan()->result_array();
+            
+		}
+		$x['data']=$data;
+		$x['ruangan']=$this->mdata->show_data_ruangan()->result_array();
         //print_r($x['ruangan']);
-        $this->load->view('v_data', $x);
+        $this->load->view('v_data',$x);
     }
     public function tambah_aksi()
     {
@@ -73,7 +74,7 @@ class Datatable extends CI_Controller
                 'no_hp' => $no_hp,
                 'nama' => $nama,
             );
-            // $this->mdata->input_data($data, 'tbl_pinjam', $ruangan);
+            $this->mdata->input_data($data, 'tbl_pinjam', $ruangan);
         } else {
             $data = array(
                 'tanggal_jam' => $v_date,
@@ -85,10 +86,10 @@ class Datatable extends CI_Controller
                 'nama' => $nama,
                 'no_hp' => $no_hp,
             ];
-            //$this->mdata->input_data($data, 'tbl_pinjam', $ruangan);
-            //$this->mdata->input_user($data_user);
+            $this->mdata->input_data($data, 'tbl_pinjam', $ruangan);
+            $this->mdata->input_user($data_user);
         }
-        // cari ruangan yang akan di update
+                // cari ruangan yang akan di update
         $temukan_ruangan = $this->mdata->get_ruangan()->row_array();
         $relasi_pinjam_ruangan = $this->mdata->find_data('tbl_pinjam_ruang', 'id_tbl_pinjam', $temukan_ruangan['id_pinjam'])->result_array();
         foreach ($relasi_pinjam_ruangan as $value) {
@@ -98,8 +99,8 @@ class Datatable extends CI_Controller
             //print_r();
             $this->mdata->update_data($value['id_tbl_ruangan'],$data);
         }
-        //print_r($relasi_pinjam_ruangan);
         redirect('Datatable/index');
 
     }
 }
+?>

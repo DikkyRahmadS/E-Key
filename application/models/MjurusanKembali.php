@@ -20,5 +20,13 @@ class MjurusanKembali extends CI_Model
 		$query = $this->db->get_where('tbl_ruangan', array('id_jurusan' =>$id_jurusan, 'flag' => 1));  
 		return $query->result();
 	}
+		
+    	public function get_no_hp($no_hp)
+	{
+		$this->db->where('no_hp', $no_hp);
+		return $this->db->get('tbl_user');
+		
+	}
+
 }
 ?>
